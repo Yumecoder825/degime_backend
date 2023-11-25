@@ -46,5 +46,5 @@ app.use(
   authMiddleware
 )
 
-app.use('/api', appRouter(io));
+app.use('/api/v1', appRouter(io));
 app.use(notFoundMiddleware)

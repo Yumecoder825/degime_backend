@@ -7,7 +7,12 @@ const schema = new Schema<ISNSProfile, SNSProfileModel, ISNSProfileMethods>(
             type: Schema.Types.ObjectId,
             ref: 'User'
         },
-        image: String,
+        bannerImages: [String],
+        profileType: String,
+        backgroundColor: String,
+        backgroundImage: String,
+        profileLink: String,
+        profileImage: String,
         accountName: String,
         profile: String,
         widgets: [Object]

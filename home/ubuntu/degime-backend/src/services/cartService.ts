@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongoose'
 import { Cart } from '@/models'
-import { ICart, Item } from '@/contracts/cart';
+import { ICart, Item } from '@/contracts/cart'
 
 class CartService {
   create(_cart: ICart) {
@@ -9,37 +9,49 @@ class CartService {
       user: _cart.user
     }).save()
   }
-  update(
-    userId: ObjectId,
-    items: ICart['items']
-  ) {
+  update(userId: ObjectId, items: ICart['items']) {
     return Cart.findOneAndUpdate({ user: userId }, { items: items })
   }
-  async updateItem(userId: ObjectId, productId: string | number, quantity: number) {
-    await Cart.findOneAndUpdate({ user: userId }, { items: { $pull: { productId: +productId } } })
-    await Cart.findOneAndUpdate({ user: userId }, { items: { $push: { productId: +productId, quantity } } })
+  async updateItem(
+    userId: ObjectId,
+    productId: string | number,
+    quantity: number
+  ) {
+    await Cart.findOneAndUpdate(
+      { user: userId },
+      { items: { $pull: { productId: +productId } } }
+    )
+    await Cart.findOneAndUpdate(
+      { user: userId },
+      { items: { $push: { productId: +productId, quantity } } }
+    )
   }
   getByUserId(userId: ObjectId) {
-    return Cart.findOne({ user: userId });
+    return Cart.findOne({ user: userId })
   }
   async addItemToCart(userId: ObjectId, item: Item) {
-    let cart = await this.getByUserId(userId);
-    if(!cart) {
-      cart = await this.create({items: [item], user: userId })
-    }
-    let index = cart.items.findIndex(t => t.productId === item.productId)
-    if(index > -1) {
-      cart.items = cart.items.slice();
-      cart.items[index].quantity = item.quantity;
+    console.log('test:===========', item)
+    let cart = await this.getByUserId(userId)
+    if (!cart) {
+      cart = await this.create({ items: [item], user: userId })
     } else {
-      cart.items.push(item);
+      let index = cart.items.findIndex(t => t.productId === item.productId)
+      if (index > -1) {
+        cart.items = cart.items.slice()
+        cart.items[index].quantity = item.quantity
+      } else {
+        cart.items.push(item)
+      }
     }
-
-    return cart.save();
+    return cart.save()
   }
 
   removeItemFromCart(userId: ObjectId, productId: string | number) {
-    return Cart.findOneAndUpdate({ user: userId }, { items: { $pull: { productId: +productId } } }, { new: true });
+    return Cart.findOneAndUpdate(
+      { user: userId },
+      { items: { $pull: { productId: +productId } } },
+      { new: true }
+    )
   }
 }
 

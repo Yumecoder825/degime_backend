@@ -3,6 +3,7 @@ import { Model, ObjectId } from 'mongoose'
 export interface IDirectMessage {
   from: ObjectId // user id
   to: ObjectId // user id
+  file: string
   channelId: string
   message: string
 }
@@ -17,10 +18,11 @@ export type DirectMessageModel = Model<IDirectMessage, unknown, IDirectMessageMe
 export interface IDirectMessagePayload {
   from: string // user id
   to: string // user id
+  file: string,
   message: string
 }
 
-export type SendDirectMessagePayload = Required<Pick<IDirectMessage, 'to' | 'message'>>
+export type SendDirectMessagePayload = Required<Pick<IDirectMessage, 'to' | 'message' | 'file'>>
 export type UpdateDirectMessagePayload = Required<Pick<IDirectMessage, 'message'>> & {
   id: ObjectId
 }

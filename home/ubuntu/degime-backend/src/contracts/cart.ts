@@ -2,6 +2,9 @@ import { Model, ObjectId } from "mongoose"
 
 export type Item = {
     productId: string | number
+    productName: string,
+    productPrice: string,
+    productImage: string,
     quantity: number
 } 
 

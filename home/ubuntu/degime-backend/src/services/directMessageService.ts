@@ -7,14 +7,16 @@ export const directMessageService = {
   create: (
     from: ObjectId,
     to: ObjectId,
-    message: string
+    message: string,
+    file: string,
   ) => {
     const channelId = getDirectChannelId(from, to);
     return new DirectMessages({
       from: from,
       to: to,
       channelId,
-      message: message
+      message: message,
+      file: file
     }).save()
   },
   update: (

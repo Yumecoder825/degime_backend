@@ -31,9 +31,11 @@ class NetworkService {
 
   async addConnector(userId: ObjectId, connector: ObjectId) {
     const network = await this.getByUserId(userId);
-    network.connectors.push(connector);
-    await network.save();
-    await this.addConnector(connector, userId)
+    if(!network.connectors.includes(connector))
+    {
+      network.connectors.push(connector);
+      await network.save();  
+    }
 
     return network;
   }

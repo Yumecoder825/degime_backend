@@ -7,6 +7,7 @@ export const channelMessageService = {
     return new ChannelMessage({
       message: msg.message,
       sentBy: msg.sentBy,
+      file: msg.file,
       messageChannel: msg.messageChannel
     }).save()
   },

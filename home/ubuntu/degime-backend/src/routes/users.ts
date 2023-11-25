@@ -7,6 +7,9 @@ import { userValidation } from '@/validations'
 export const users = (router: Router): void => {
   router.get('/me', authGuard.isAuth, userController.me)
 
+  router.get('/user/profile/:userId', userController.getUser)
+  router.get('/user/:userId', userController.getUserById)
+
   router.post(
     '/user/verification/request',
     authGuard.isAuth,

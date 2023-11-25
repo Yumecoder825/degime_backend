@@ -2,9 +2,13 @@ import { Model, ObjectId } from 'mongoose'
 import { Widget } from './profile'
 
 export interface ISNSProfile {
-  id: ObjectId
   user: ObjectId // user id
-  image: string,
+  profileType: string,
+  profileLink: string,
+  backgroundColor: string,
+  backgroundImage: string,
+  bannerImages: string[],
+  profileImage: string,
   accountName: string
   profile: string
   widgets: Widget[]

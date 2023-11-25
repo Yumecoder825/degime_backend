@@ -8,6 +8,13 @@ export interface INetwork {
 export interface INetworkMethods {
 }
 
+export interface INetworkRequestPayload {
+  from_id: string // user id
+  from_name: string
+  from_userId: string
+  to: ObjectId 
+}
+
 export type NetworkModel = Model<INetwork, unknown, INetworkMethods>
 
 export type AddConnectorPayload = {

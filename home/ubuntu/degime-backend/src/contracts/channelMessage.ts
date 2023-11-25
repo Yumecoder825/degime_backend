@@ -3,6 +3,7 @@ import { Model, ObjectId } from 'mongoose'
 export interface IChannelMesssage {
   sentBy: ObjectId,
   messageChannel: ObjectId,
+  file: string,
   message: string
 }
 

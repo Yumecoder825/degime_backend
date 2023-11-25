@@ -41,6 +41,7 @@ export const channelMessageController = {
         {
             body: {
                 message,
+                file,
                 messageChannel
             },
             context: {
@@ -62,8 +63,11 @@ export const channelMessageController = {
             const newMsg = await channelMessageService.create({
                 message: message,
                 messageChannel: messageChannel,
+                file: file,
                 sentBy: user.id
             });
+
+            console.log(newMsg);
             // socket emit
             ioFn(newMsg)
             return res.status(StatusCodes.OK).json({

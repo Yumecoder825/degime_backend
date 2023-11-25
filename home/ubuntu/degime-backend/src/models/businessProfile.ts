@@ -14,18 +14,22 @@ const schema = new Schema<IBusinessProfile, BusinessProfileModel, IBusinessProfi
         backgroundImage: String,
         contact1: {
             contact_type: String,
+            contact_image: String,
             contact_info: String,
         },
         contact2: {
             contact_type: String,
+            contact_image: String,
             contact_info: String,
         },
         contact3: {
             contact_type: String,
+            contact_image: String,
             contact_info: String,
         },
         contact4: {
             contact_type: String,
+            contact_image: String,
             contact_info: String,
         },
         profile: String,
@@ -38,7 +42,9 @@ const schema = new Schema<IBusinessProfile, BusinessProfileModel, IBusinessProfi
         email: String,
         address: String,
         widgets: [Object]
-    },
+    }, {
+        timestamps: true,
+    }
 )
 
 export const BusinessProfile = model<IBusinessProfile, BusinessProfileModel>('BusinessProfile', schema)

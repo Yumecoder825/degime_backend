@@ -13,6 +13,7 @@ const schema = new Schema<IDirectMessage, DirectMessageModel, IDirectMessageMeth
             type: Schema.Types.ObjectId,
             ref: 'User'
         },
+        file: String,
         channelId: String,
         message: String,
     },

@@ -20,7 +20,6 @@ export class Image {
     height
   }: { width?: number; height?: number } = {}): Promise<string> {
     let fileName = this.image.filename
-
     const conversionsPath = join(this.image.destination, 'conversions')
     const filePath = join(
       conversionsPath,
@@ -32,7 +31,6 @@ export class Image {
     if (await this.isFileExist(fileFullPath)) {
       return filePath
     }
-
     this.sharpInstance = sharp(joinRelativeToMainPath(this.image.path))
 
     await this.createDirectoryIfNeeded(joinRelativeToMainPath(conversionsPath))
@@ -90,7 +88,6 @@ export class Image {
   }
 
   private async saveFile(fileFullPath: string) {
-
     try {
       await this.sharpInstance.toFile(fileFullPath)
     } catch {

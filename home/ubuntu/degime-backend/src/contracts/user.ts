@@ -18,9 +18,12 @@ export interface IUser {
   email: string
   password: string
   userId: string
+  avatar?: string
   name?: string
   connectedBy?: ObjectId | Types.ObjectId
   verified: boolean
+  businessProfileLink?: string
+  snsProfileLink?: string
   profileViewCount: number
   verifications?: ObjectId[]
   resetPasswords?: ObjectId[]
@@ -34,9 +37,11 @@ export type UserModel = Model<IUser, unknown, IUserMethods>
 
 export type VerificationRequestPayload = Pick<IUser, 'email'>
 
-export type UpdateProfilePayload = Required<
-  Pick<IUser, 'name'>
->
+export type UpdateProfilePayload = Required<Pick<IUser, 'name'>>
+
+export type UpdateUserBusinessProfilePayload = Required<Pick<IUser, 'businessProfileLink'>>
+
+export type UpdateUserSnsProfilePayload = Required<Pick<IUser, 'snsProfileLink'>>
 
 export type UpdateEmailPayload = Pick<IUser, 'email' | 'password'>
 

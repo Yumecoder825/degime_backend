@@ -3,8 +3,10 @@ import { Router } from 'express'
 import { networkController } from '@/controllers'
 import { authGuard } from '@/guards'
 import { networkValidation } from '@/validations'
+import { withIOFn } from '@/utils/mvc'
+import { Server } from 'socket.io'
 
-export const network = (router: Router): void => {
+export const network = (router: Router, io: Server): void => {
     router.get(
         '/network/mine',
         authGuard.isAuth,
@@ -16,10 +18,14 @@ export const network = (router: Router): void => {
         networkController.getnetworkById
     );
     router.post(
-        '/network',
+        '/network/connect',
         authGuard.isAuth,
         networkValidation.connect,
-        networkController.connect
+        
+        withIOFn(networkController.connect, (data) => {
+            console.log(data);
+            io.emit(`connect-request/${data.to}`, data);
+        })
     );
     router.post(
         '/network/remove',

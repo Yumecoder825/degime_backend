@@ -8,6 +8,9 @@ const schema = new Schema<ICart, CartModel, ICartMethods>(
                 type: String,
                 required: true
             },
+            productName: String,
+            productPrice: String,
+            productImage: String,
             quantity: {
                 type: Number,
                 required: true

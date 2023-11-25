@@ -11,6 +11,7 @@ const schema = new Schema<IUser, UserModel, IUserMethods>(
       type: String,
       required: true
     },
+    avatar: String,
     name: String,
     connectedBy: {
       type: Schema.Types.ObjectId,
@@ -24,6 +25,8 @@ const schema = new Schema<IUser, UserModel, IUserMethods>(
       type: Boolean,
       default: false
     },
+    businessProfileLink: String,
+    snsProfileLink: String,
     verifications: [{ type: Schema.Types.ObjectId, ref: 'Verification' }],
     resetPasswords: [{ type: Schema.Types.ObjectId, ref: 'ResetPassword' }]
   },

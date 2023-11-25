@@ -7,5 +7,7 @@ export type Widget = {
     property: {
         widget_type: string;
         widget_info: any[]
+        start_time: string;
+        end_time: string;
     }
 }

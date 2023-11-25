@@ -3,6 +3,7 @@ import { Widget } from './profile'
 
 export type Contact = {
   contact_type: string,
+  contact_image: string,
   contact_info: string,
 }
 
@@ -27,6 +28,16 @@ export interface IBusinessProfile {
   email: string
   address: string
   widgets: Widget[]
+}
+
+export interface IProfileChangePayload {
+  from_id: string // user id
+  from_name: string
+  to?: string // user id
+  profile_link: string,
+  profile_type: string,
+  // file: string,
+  // message: string
 }
 
 export interface IBusinessProfileMethods {

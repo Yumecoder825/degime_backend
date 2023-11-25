@@ -9,14 +9,14 @@ export const directMessageController = {
     sendDirectMessage: async (
         {
             context: { user },
-            body: { to, message }
+            body: { to, message, file }
         }: ICombinedRequest<IUserRequest, SendDirectMessagePayload>,
         res: Response,
         next: NextFunction,
         ioFn: (data: IDirectMessagePayload) => void
     ) => {
         try {
-            const msg = await directMessageService.create(user.id, to, message)
+            const msg = await directMessageService.create(user.id, to, message, file)
             ioFn(msg.toJSON())
             return res.status(StatusCodes.OK).json({
                 data: { from: user.id, to: to, message: message },

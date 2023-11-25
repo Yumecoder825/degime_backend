@@ -10,6 +10,7 @@ export declare global {
       APP_PORT: number
       APP_SOCKET_PORT: number
       APP_URL: string
+      SERVER_URL: string
       CLIENT_URL: string
       MONGODB_URI: string
       JWT_SECRET: string

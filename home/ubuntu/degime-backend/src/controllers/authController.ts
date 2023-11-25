@@ -15,7 +15,8 @@ import {
   resetPasswordService,
   verificationService,
   userService,
-  networkService
+  networkService,
+  businessProfileService
 } from '@/services'
 import { jwtSign } from '@/utils/jwt'
 import {
@@ -31,7 +32,15 @@ import { createHash } from '@/utils/hash'
 
 export const authController = {
   signIn: async (
-    { body: { email, password } }: IBodyRequest<SignInPayload>,
+    {
+      body: { email, password },
+      query: { connectedBy }
+    }: ICombinedRequest<
+      undefined,
+      SignInPayload,
+      undefined,
+      SignUpQueryPayload
+    >,
     res: Response
   ) => {
     try {
@@ -43,6 +52,10 @@ export const authController = {
           message: ReasonPhrases.NOT_FOUND,
           status: StatusCodes.NOT_FOUND
         })
+      }
+
+      if (connectedBy) {
+        networkService.addConnector(connectedBy, user?.id as ObjectId)
       }
 
       const { accessToken } = jwtSign(user.id)
@@ -66,13 +79,20 @@ export const authController = {
     {
       body: { email, password, userId },
       query: { connectedBy }
-    }: ICombinedRequest<undefined, SignUpPayload, undefined, SignUpQueryPayload>,
+    }: ICombinedRequest<
+      undefined,
+      SignUpPayload,
+      undefined,
+      SignUpQueryPayload
+    >,
     res: Response
   ) => {
     const session = await startSession()
     try {
       const isUserEmailExist = await userService.isExistByEmail(email)
-      const isUserIdExist = await userService.isExistByUserId(userId)
+      const isUserIdExist = await businessProfileService.checkProfileLink(
+        userId
+      )
 
       if (isUserEmailExist) {
         return res.status(StatusCodes.CONFLICT).json({
@@ -102,6 +122,7 @@ export const authController = {
         },
         session
       )
+
       if (connectedBy) {
         networkService.addConnector(connectedBy, user?.id as ObjectId)
       }

@@ -2,21 +2,32 @@ import { Router } from 'express'
 
 import { authGuard } from '@/guards'
 import { businessProfileController } from '@/controllers'
+import { withIOFn } from '@/utils/mvc'
+import { Server } from 'socket.io';
 
-export const businessProfiles = (router: Router): void => {
+export const businessProfiles = (router: Router, io: Server): void => {
     router.post(
-        '/business-profile',
+        '/bp/create-or-update',
         authGuard.isAuth,
-        businessProfileController.createBusinessProfile
-    ),
+        withIOFn(businessProfileController.createOrUpdateBusinessProfile, (data) => {
+          console.log(data);
+          io.emit(`profile-changed/changed`, data);
+      }
+    )),
     router.get(
-        '/get-business-profile/:businessProfileLink',
+        '/bp/get-business-profile/:profileLink',
         businessProfileController.getBusinessProfile
     )
 
     router.get(
-        '/get-business-profiles',
+        '/bp/get-own-business-profile',
         authGuard.isAuth,
-        businessProfileController.getBusinessProfiles
+        businessProfileController.getOwnBusinessProfile
+    )
+
+    router.post(
+        '/bp/update-business-link',
+        authGuard.isAuth,
+        businessProfileController.updateBusinessProfileLink
     )
 }

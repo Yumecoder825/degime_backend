@@ -5,6 +5,7 @@ import winston from 'winston'
 import moment from 'moment'
 
 import {
+  IBodyRequest,
   ICombinedRequest,
   IContextRequest,
   IParamsRequest,
@@ -16,6 +17,8 @@ import {
   UpdateEmailPayload,
   UpdatePasswordPayload,
   UpdateProfilePayload,
+  UpdateUserBusinessProfilePayload,
+  UpdateUserSnsProfilePayload,
   VerificationRequestPayload
 } from '@/contracts/user'
 import {
@@ -61,6 +64,53 @@ export const userController = {
       message: ReasonPhrases.OK,
       status: StatusCodes.OK
     })
+  },
+
+  getUser: async (
+    { params: { userId } }: IParamsRequest<string>,
+    res: Response
+  ) => {
+    try {
+      const userProfile = await userService.getUser(userId)
+      if (!userProfile) {
+        return res.status(StatusCodes.NOT_FOUND).json({
+          message: ReasonPhrases.NOT_FOUND,
+          status: StatusCodes.NOT_FOUND
+        })
+      }
+      return res.status(StatusCodes.OK).json({
+        data: userProfile,
+        message: ReasonPhrases.OK,
+        status: StatusCodes.OK
+      })
+    } catch (error) {}
+  },
+
+  getUserById: async (
+    { params }: IParamsRequest<{ userId: ObjectId }>,
+    res:Response
+  ) => {
+    try {
+      const userProfile = await userService.getById(params.userId);
+      if (!userProfile) {
+        return res.status(StatusCodes.NOT_FOUND).json({
+          message: ReasonPhrases.NOT_FOUND,
+          status: StatusCodes.NOT_FOUND
+        })
+      }
+      return res.status(StatusCodes.OK).json({
+        data: userProfile,
+        message: ReasonPhrases.OK,
+        status: StatusCodes.OK
+      })
+    } catch (error) {
+      winston.error(error)
+
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        message: ReasonPhrases.BAD_REQUEST,
+        status: StatusCodes.BAD_REQUEST
+      })
+    }
   },
 
   verificationRequest: async (
@@ -259,6 +309,99 @@ export const userController = {
 
       return res.status(StatusCodes.OK).json({
         data: { name },
+        message: ReasonPhrases.OK,
+        status: StatusCodes.OK
+      })
+    } catch (error) {
+      winston.error(error)
+
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        message: ReasonPhrases.BAD_REQUEST,
+        status: StatusCodes.BAD_REQUEST
+      })
+    }
+  },
+
+  updateUserProfile: async (
+    {
+      context: { user },
+      body: { name }
+    }: ICombinedRequest<IUserRequest, UpdateProfilePayload>,
+    res: Response
+  ) => {
+    try {
+      await userService.updateProfileByUserId(user.id, { name })
+
+      const userMail = new UserMail()
+
+      userMail.successfullyUpdatedProfile({
+        email: user.email
+      })
+
+      return res.status(StatusCodes.OK).json({
+        data: { name },
+        message: ReasonPhrases.OK,
+        status: StatusCodes.OK
+      })
+    } catch (error) {
+      winston.error(error)
+
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        message: ReasonPhrases.BAD_REQUEST,
+        status: StatusCodes.BAD_REQUEST
+      })
+    }
+  },
+
+  updateUserBusinessProfileLink: async (
+    {
+      context: { user },
+      body: { businessProfileLink }
+    }: ICombinedRequest<IUserRequest, UpdateUserBusinessProfilePayload>,
+    res: Response
+  ) => {
+    try {
+      await userService.updateBusinessProfileLink(user.id, { businessProfileLink })
+
+      const userMail = new UserMail()
+
+      // userMail.successfullyUpdatedProfile({
+      //   email: user.email
+      // })
+
+      return res.status(StatusCodes.OK).json({
+        data: { businessProfileLink },
+        message: ReasonPhrases.OK,
+        status: StatusCodes.OK
+      })
+    } catch (error) {
+      winston.error(error)
+
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        message: ReasonPhrases.BAD_REQUEST,
+        status: StatusCodes.BAD_REQUEST
+      })
+    }
+  },
+
+  updateUserSnsProfileLink: async (
+    {
+      context: { user },
+      body: { snsProfileLink }
+    }: ICombinedRequest<IUserRequest, UpdateUserSnsProfilePayload>,
+    res: Response
+  ) => {
+    try {
+      await userService.updateSnsProfileLink(user.id, { snsProfileLink })
+
+      const userMail = new UserMail()
+
+      // userMail.successfullyUpdatedProfile({
+      //   email: user.email
+      // })
+
+      return res.status(StatusCodes.OK).json({
+        data: { snsProfileLink },
         message: ReasonPhrases.OK,
         status: StatusCodes.OK
       })

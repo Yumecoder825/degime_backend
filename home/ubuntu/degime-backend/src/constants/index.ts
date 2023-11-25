@@ -4,7 +4,8 @@ export enum ExpiresInDays {
 }
 
 export enum Mimetype {
-
+  Jpeg = 'image/jpeg',
+  Png = 'image/png'
 }
 
 export enum ImageSizeInMb {

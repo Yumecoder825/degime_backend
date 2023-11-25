@@ -13,6 +13,7 @@ const schema = new Schema<IChannelMesssage, ChannelMessageModel, IChannelMessage
             type: Schema.Types.ObjectId,
             ref: 'MessageChannel'
         },
+        file: String,
         message: String,
     },
     { timestamps: true }
