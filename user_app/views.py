@@ -67,15 +67,16 @@ def user_login(request):
         if '@' in username:
             try:
                 user = CustomUser.objects.get(email=username)
-            except CustomUser.ObjectDoesNotExist:
+            except:
                 pass
 
         if not user:
             user = authenticate(username=username, password=password)
-
+        
         if user:
-            token, _ = Token.objects.get_or_create(user=user)
-            return Response({'token': token.key}, status=status.HTTP_200_OK)
+            if user.check_password(password):
+                token, _ = Token.objects.get_or_create(user=user)
+                return Response({'token': token.key, 'username': user.username,'email': user.email, 'avatar': user.avatar}, status=status.HTTP_200_OK)
 
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
@@ -113,7 +114,7 @@ class ForgotPasswordView(APIView):
         email = request.data.get('email', '')
         try:
             user = CustomUser.objects.get(email=email)
-        except CustomUser.DoesNotExist:
+        except:
             return Response({'error': 'User with this email does not exist.'}, status=status.HTTP_404_NOT_FOUND)
 
         vcode = generate_vcode()

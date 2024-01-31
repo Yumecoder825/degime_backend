@@ -37,11 +37,15 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
 ]
 
 THIRD_PARTY_APPS = [
+    'daphne',
+    'channels',
     'rest_framework',
     'rest_framework.authtoken',
+    'corsheaders',
     # 'django_rest_passwordreset',
 ]
 
@@ -50,18 +54,27 @@ LOCAL_APPS = [
     'social_app.apps.SocialAppConfig',
 ]
 
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+INSTALLED_APPS = THIRD_PARTY_APPS + DJANGO_APPS + LOCAL_APPS
 
 AUTH_USER_MODEL = 'user_app.CustomUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    
+    'corsheaders.middleware.CorsMiddleware',
+    
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # Add your frontend's domain here
+    "http://83.234.227.13:3000",
+    "http://192.168.142.178:3000"
 ]
 
 ROOT_URLCONF = 'Degime_backend.urls'
@@ -83,29 +96,37 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Degime_backend.wsgi.application'
+ASGI_APPLICATION = 'Degime_backend.asgi.application'
 
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
+
+APPEND_SLASH = False
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'degime_db',
-        'CLIENT': {
-            'host': 'mongodb+srv://adonebellucci9:MN6NTLbCekjvaDu1@cluster0.b3mokv5.mongodb.net/cluster0?retryWrites=true&w=majority',
-            'username': 'adonebellucci9',
-            'password': 'MN6NTLbCekjvaDu1',
-        },
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME': 'degime_db',
+#         'CLIENT': {
+#             'host': 'mongodb+srv://adonebellucci9:MN6NTLbCekjvaDu1@cluster0.b3mokv5.mongodb.net/cluster0?retryWrites=true&w=majority',
+#             'username': 'adonebellucci9',
+#             'password': 'MN6NTLbCekjvaDu1',
+#         },
+#     }
+# }
 
 
 # Password validation
