@@ -16,3 +16,8 @@ jobs:
           SAKURA_SSH_KEY: ${{ secrets.SAKURA_SSH_KEY }}
       - name: rsync deploy
         run: rsync -rptgDvz --delete -e "ssh -i key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" ./home/ubuntu/degime-backend/* ubuntu@133.242.184.231:/home/ubuntu/degime-backend
+
+      - name: Install Python
+        run: sudo apt-get install python3
+      - name: Install environment
+        run: pip install -r requirements.txt
