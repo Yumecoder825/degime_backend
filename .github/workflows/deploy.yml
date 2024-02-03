@@ -26,7 +26,7 @@ jobs:
 
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r ./home/ubuntu/degime-backend/requirements.txt
 
       - name: Install other dependencies
         run: pip install sqlparse==0.2.4
