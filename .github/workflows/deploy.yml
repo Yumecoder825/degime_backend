@@ -25,14 +25,8 @@ jobs:
         run: rsync -rptgDvz --delete -e "ssh -i key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" ./home/ubuntu/degime-backend/* ubuntu@133.242.184.231:/home/ubuntu/degime-backend
 
 
-      - name: Install 1
-        run: pip install django
-
-      - name: Install 1
-        run: pip install djongo
-
-      - name: Install 1
-        run: pip install requests
+      - name: Install dependencies
+        run: pip install -r requirements.txt
 
       - name: Install other dependencies
         run: pip install sqlparse==0.2.4
