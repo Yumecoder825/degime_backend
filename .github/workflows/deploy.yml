@@ -40,4 +40,4 @@ jobs:
         run: pip install gunicorn
 
       - name: Start server 
-        run: python ./home/ubuntu/degime-backend/manage.py localhost:8000
+        run: python ./home/ubuntu/degime-backend/manage.py 8000
