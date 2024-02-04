@@ -37,4 +37,4 @@ jobs:
         run: python ./home/ubuntu/degime-backend/manage.py migrate
 
       - name: Start server 
-        run: python ./home/ubuntu/degime-backend/manage.py runserver 8000
+        run: gunicorn ./home/ubuntu/degime_backend.asgi:application -w 4 -b 0.0.0.0:8000
