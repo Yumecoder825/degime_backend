@@ -74,6 +74,7 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # Add your frontend's domain here
+    "https://degime.net"
 ]
 
 ROOT_URLCONF = 'Degime_backend.urls'
