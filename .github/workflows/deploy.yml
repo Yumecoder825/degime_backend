@@ -27,13 +27,7 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r ./home/ubuntu/degime-backend/requirements.txt
-
-      - name: Install other dependencies
-        run: pip install sqlparse==0.2.4
       
-      - name: Collect static files
-        run: python manage.py collectstatic
-
       - name: Run makemigrations
         run: python manage.py makemigrations
 
