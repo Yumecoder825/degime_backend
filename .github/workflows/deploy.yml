@@ -28,7 +28,7 @@ jobs:
         run: python -m pip install --upgrade pip
 
       - name: move location
-        run: cd ./home/ubuntu/degime-backend
+        run: cd /home/ubuntu/degime-backend
 
       - name: Install dependencies
         run: pip install -r requirements.txt
@@ -44,4 +44,3 @@ jobs:
 
       - name: Start server 
         run: python manage.py runserver
-        
