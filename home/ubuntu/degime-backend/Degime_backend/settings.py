@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-ztf4cw8nh$_7sx9#tse_jqc#g!k#!%hq5em2t@=h(d(c-0#s!^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*',
+                 'https://ik1-129-71227.vs.sakura.ne.jp']
 
 
 # Application definition
@@ -189,3 +190,7 @@ EMAIL_USE_TLS = True  # Set to False if your email server doesn't use TLS
 EMAIL_HOST = 'smtp.gmail.com'  # Replace with your email host
 EMAIL_HOST_USER = 'sticker.flex.3@gmail.com'  # Replace with your email username
 EMAIL_HOST_PASSWORD = 'rucfignkmzvgyryo'  # Replace with your email password
+
+SECURE_SSL_REDIRECT = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
