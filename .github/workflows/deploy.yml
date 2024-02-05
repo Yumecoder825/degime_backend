@@ -36,13 +36,10 @@ jobs:
       - name: Run migrations
         run: python ./home/ubuntu/degime-backend/manage.py migrate
 
-      - name: Install Gunicorn
-        run: pip install gunicorn
-
-      - name: Start server
-        run: gunicorn degime-backend.wsgi:application --bind 127.0.0.1:8000
+      - name: Collect static files
+        run: python ./home/ubuntu/degime-backend/manage.py collectstatic
       # - name: Install Gunicorn
       #   run: pip install gunicorn
 
-      # - name: Start server 
-      #   run: python ./home/ubuntu/degime-backend/manage.py runserver 133.242.184.231:8000
+      - name: Start server 
+        run: python ./home/ubuntu/degime-backend/manage.py runserver 0.0.0.0:8000
