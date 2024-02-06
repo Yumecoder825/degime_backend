@@ -36,8 +36,8 @@ jobs:
       - name: Run migrations
         run: python ./home/ubuntu/degime-backend/manage.py migrate
 
-      - name: Collect static files
-        run: python ./home/ubuntu/degime-backend/manage.py collectstatic --noinput
+      # - name: Collect static files
+      #   run: python ./home/ubuntu/degime-backend/manage.py collectstatic --noinput
       
       # - name: Install Gunicorn
       #   run: pip install gunicorn
