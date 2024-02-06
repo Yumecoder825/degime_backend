@@ -1,4 +1,4 @@
-from rest_framework import status
+from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from .serializers import UserSerializer, ChangePasswordSerializer, ResetPasswordSerializer
@@ -12,6 +12,11 @@ from .utils import generate_vcode, send_vcode_email
 from django.core.signing import TimestampSigner, BadSignature
 from django.shortcuts import redirect
 from datetime import datetime
+
+# Backend Check
+class CheckAPIView(generics.GenericAPIView):
+    def get(self, request, *args, **kwargs):
+        return Response({"Status: OK"}, status=status.HTTP_200_OK)
 
 
 # Register with Email vcode
