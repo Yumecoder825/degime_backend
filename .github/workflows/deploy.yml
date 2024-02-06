@@ -36,14 +36,14 @@ jobs:
       - name: Run migrations
         run: python ./home/ubuntu/degime-backend/manage.py migrate
 
-      # - name: Collect static files
-      #   run: python ./home/ubuntu/degime-backend/manage.py collectstatic
+      - name: Collect static files
+        run: python ./home/ubuntu/degime-backend/manage.py collectstatic --noinput
       
-      - name: Install Gunicorn
-        run: pip install gunicorn
+      # - name: Install Gunicorn
+      #   run: pip install gunicorn
 
-      - name: Run Backend
-        run: gunicorn ./home/ubuntu/degime-backend/Degime_backend.asgi
+      # - name: Run Backend
+      #   run: gunicorn ./home/ubuntu/degime-backend/Degime_backend.asgi
 
-      # - name: Start server 
-      #   run: python ./home/ubuntu/degime-backend/manage.py runserver 0.0.0.0:8000
+      - name: Start server 
+        run: python ./home/ubuntu/degime-backend/manage.py test # runserver 0.0.0.0:8000
