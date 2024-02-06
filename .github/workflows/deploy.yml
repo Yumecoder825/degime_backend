@@ -43,7 +43,7 @@ jobs:
         run: pip install gunicorn
 
       - name: Run Backend
-        run: gunicorn ./home/ubuntu/degime-backend/Degime_backend.wsgi
+        run: gunicorn ./home/ubuntu/degime-backend/Degime_backend.asgi
 
       # - name: Start server 
       #   run: python ./home/ubuntu/degime-backend/manage.py runserver 0.0.0.0:8000
