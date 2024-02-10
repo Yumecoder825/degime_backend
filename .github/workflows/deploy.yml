@@ -45,5 +45,5 @@ jobs:
       # - name: Run Backend
       #   run: gunicorn ./home/ubuntu/degime-backend/Degime_backend.asgi
 
-      - name: Start server 
-        run: python ./home/ubuntu/degime-backend/manage.py runserver 8000
+      # - name: Start server 
+      #   run: python ./home/ubuntu/degime-backend/manage.py runserver 8000
