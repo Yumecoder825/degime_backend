@@ -30,8 +30,8 @@ jobs:
       - name: Install dependencies
         run: pip install -r ./home/ubuntu/degime-backend/requirements.txt
 
-      - name: Install Gunicorn
-        run: pip install gunicorn
+      # - name: Install Gunicorn
+      #   run: pip install gunicorn
       
       - name: Run makemigrations
         run: python ./home/ubuntu/degime-backend/manage.py makemigrations
@@ -48,8 +48,8 @@ jobs:
       # - name: Run Backend
       #   run: gunicorn ./home/ubuntu/degime-backend/Degime_backend.asgi
 
-      # - name: Start server 
-      #   run: python ./home/ubuntu/degime-backend/manage.py runserver 8000
+      - name: Start server 
+        run: python ./home/ubuntu/degime-backend/manage.py runserver 8000
 
-      - name: Run server
-        run: gunicorn - daemon - workers=4 ./home/ubuntu/degime-backend/Degime_backend.asgi:application -b 0.0.0.0:80
+      # - name: Run server
+      #   run: gunicorn - daemon - workers=4 ./home/ubuntu/degime-backend/Degime_backend.asgi:application -b 0.0.0.0:80
