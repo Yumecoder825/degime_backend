@@ -47,3 +47,7 @@ jobs:
 
       # - name: Start server 
       #   run: python ./home/ubuntu/degime-backend/manage.py runserver 8000
+
+      - name: Run server
+      run: pip install gunicorn
+      && gunicorn - daemon - workers=4 ./home/ubuntu/degime-backend/Degime_backend.asgi:application -b 0.0.0.0:80
