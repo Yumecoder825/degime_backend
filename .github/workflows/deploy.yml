@@ -11,18 +11,13 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      # - name: Set up Python
-      #   uses: actions/setup-python@v4
-      #   with:
-      #     python-version: 3.x  # Specify your desired Python version
-
       - name: ssh key generate
         run: echo "$SAKURA_SSH_KEY" > key && chmod 600 key
         env:
           SAKURA_SSH_KEY: ${{ secrets.SAKURA_SSH_KEY }}
 
       - name: rsync deploy
-        run: rsync -rptgDvz --delete -e "ssh -i key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" ./home/ubuntu* ubuntu@133.242.184.231:/home
+        run: rsync -rptgDvz --delete -e "ssh -i key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" ./home/ubuntu/degime-backend* ubuntu@133.242.184.231:/home/ubuntu
 
       - name: pip update
         run: python -m pip install --upgrade pip
@@ -38,20 +33,3 @@ jobs:
 
       - name: Run migrations
         run: python ./home/ubuntu/degime-backend/manage.py test
-        
-
-        
-      # - name: Collect static files
-      #   run: python ./home/ubuntu/degime-backend/manage.py collectstatic --noinput
-      
-      # - name: Install Gunicorn
-      #   run: pip install gunicorn
-
-      # - name: Run Backend
-      #   run: gunicorn ./home/ubuntu/degime-backend/Degime_backend.asgi
-
-      # - name: Start server 
-      #   run: python ./home/ubuntu/degime-backend/manage.py runserver 8000
-
-      # - name: Run server
-      #   run: gunicorn - daemon - workers=4 ./home/ubuntu/degime-backend/Degime_backend.asgi:application -b 0.0.0.0:80
