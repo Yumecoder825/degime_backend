@@ -49,6 +49,8 @@ class ValidateUserView(APIView):
         except CustomUser.DoesNotExist:
             return Response({'error': 'User with this email does not exist.'}, status=status.HTTP_404_NOT_FOUND)
 
+        print (vcode)
+        print (user.vcode)
         if user.vcode == vcode and not user.email_verified:
             user.vcode = None
             user.email_verified = True
