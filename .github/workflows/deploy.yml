@@ -38,6 +38,7 @@ jobs:
 
       - name: Run migrations
         run: python ./home/ubuntu/degime-backend/manage.py test
+        
 
         
       # - name: Collect static files
