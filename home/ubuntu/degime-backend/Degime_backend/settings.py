@@ -191,6 +191,8 @@ EMAIL_HOST = 'smtp.gmail.com'  # Replace with your email host
 EMAIL_HOST_USER = 'sticker.flex.3@gmail.com'  # Replace with your email username
 EMAIL_HOST_PASSWORD = 'rucfignkmzvgyryo'  # Replace with your email password
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 SECURE_SSL_REDIRECT = True
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
