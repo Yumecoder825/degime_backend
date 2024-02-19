@@ -117,14 +117,17 @@ DATABASES = {
     }
 }
 
+
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'djongo',
 #         'NAME': 'degime_db',
 #         'CLIENT': {
-#             'host': 'mongodb+srv://adonebellucci9:MN6NTLbCekjvaDu1@cluster0.b3mokv5.mongodb.net/cluster0?retryWrites=true&w=majority',
-#             'username': 'adonebellucci9',
-#             'password': 'MN6NTLbCekjvaDu1',
+#             'host': 'mongodb+srv://master:ZgmtB0gpvnKwnw9x@test.g6gl1lq.mongodb.net/cluster0?retryWrites=true&w=majority',
+#                      
+#             'username': 'master',
+#             'password': 'ZgmtB0gpvnKwnw9x',
 #         },
 #     }
 # }
