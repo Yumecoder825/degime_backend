@@ -17,7 +17,7 @@ jobs:
           SAKURA_SSH_KEY: ${{ secrets.SAKURA_SSH_KEY }}
 
       - name: rsync deploy
-        run: rsync -rptgDvz --delete -e "ssh -i key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" ./home/ubuntu* ubuntu@133.242.184.231:/home
+        run: rsync -rptgDvz --delete -e "ssh -i key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" ./home/ubuntu/degime-backend* ubuntu@133.242.184.231:/home/ubuntu
 
       - name: pip update
         run: python -m pip install --upgrade pip
