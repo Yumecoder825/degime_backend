@@ -31,6 +31,7 @@ urlpatterns = [
     path('account/', include('user_app.urls')),
     
     path('docs/', include_docs_urls(title='DEGIME_API')),
+    
     path('schema/', get_schema_view(
         title="DEGIME_API", description="Guide for the CRUD operations",
         version="1.0.0"), name='OpenApi_Schema')
