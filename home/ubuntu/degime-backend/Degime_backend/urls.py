@@ -22,15 +22,15 @@ from user_app.views import CheckAPIView
 urlpatterns = [
     path('admin/', admin.site.urls),
     
-    path('api/check/', CheckAPIView.as_view(), name='Backend API Check'),
+    path('check/', CheckAPIView.as_view(), name='Backend API Check'),
     
-    path('api/social/', include('social_app.urls')),
+    path('social/', include('social_app.urls')),
     
-    path('api/chat/', include('chat_app.urls')),
+    path('chat/', include('chat_app.urls')),
     
-    path('api/account/', include('user_app.urls')),
+    path('account/', include('user_app.urls')),
     
-    path('api/docs/', include_docs_urls(title='DEGIME_API')),
+    path('docs/', include_docs_urls(title='DEGIME_API')),
     path('schema/', get_schema_view(
         title="DEGIME_API", description="Guide for the CRUD operations",
         version="1.0.0"), name='OpenApi_Schema')

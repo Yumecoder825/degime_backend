@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-ztf4cw8nh$_7sx9#tse_jqc#g!k#!%hq5em2t@=h(d(c-0#s!^
 DEBUG = True
 
 ALLOWED_HOSTS = ['*',
-                 'https://ik1-129-71227.vs.sakura.ne.jp']
+                 'https://ik1-129-71227.sakura.ne.jp']
 
 
 # Application definition
@@ -74,8 +74,8 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # Add your frontend's domain here
-    "https://degime.net"
+    "http://localhost:3001",  # Add your frontend's domain here
+    "https://digime.net"
 ]
 
 ROOT_URLCONF = 'Degime_backend.urls'
@@ -83,7 +83,7 @@ ROOT_URLCONF = 'Degime_backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR, 'templates/',],
+        'DIRS': [BASE_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
