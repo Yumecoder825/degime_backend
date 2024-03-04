@@ -35,7 +35,7 @@ class RegisterUserView(APIView):
         user.vcode = vcode
         user.save()
 
-        send_vcode_email(email, vcode)
+        # send_vcode_email(email, vcode)
 
         return Response({'message': 'Verification code has been sent to your email.'}, status=status.HTTP_200_OK)
 
@@ -83,7 +83,7 @@ def user_login(request):
         if user:
             if user.check_password(password):
                 token, _ = Token.objects.get_or_create(user=user)
-                return Response({'token': token.key, 'username': user.username,'email': user.email, 'avatar': user.avatar}, status=status.HTTP_200_OK)
+                return Response({'token': token.key, 'username': user.username,'email': user.email, 'avatar': user.avatar, 'is_superuser': user.is_superuser}, status=status.HTTP_200_OK)
 
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 

@@ -5,6 +5,7 @@ class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
     vcode = models.CharField(max_length=6, null=True, blank=True)  # Add the otp
     email_verified = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
     is_online = models.BooleanField(default=False)
     avatar = models.CharField(max_length=255, null=True, blank=True) 
     unread_person = models.IntegerField(default=0)
