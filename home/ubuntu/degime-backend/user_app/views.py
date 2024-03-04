@@ -35,7 +35,7 @@ class RegisterUserView(APIView):
         user.vcode = vcode
         user.save()
 
-        # send_vcode_email(email, vcode)
+        send_vcode_email(email, vcode)
 
         return Response({'message': 'Verification code has been sent to your email.'}, status=status.HTTP_200_OK)
 
