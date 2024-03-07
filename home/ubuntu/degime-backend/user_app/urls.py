@@ -1,12 +1,13 @@
 from rest_framework.authtoken.views import obtain_auth_token
 from django.urls import path, include
-from .views import (RegisterUserView, ValidateUserView, 
-                    user_login, user_logout, change_password, 
-                    ForgotPasswordView, ValidateVcodeView, ResetPasswordView)
+from .views import (RegisterUserView, ValidateUserView,
+                    user_login, user_logout, change_password,
+                    ForgotPasswordView, ValidateVcodeView, ResetPasswordView, get_me)
 
 urlpatterns = [
     path('register/vcode', RegisterUserView.as_view(), name='register'),
     path('register/validate', ValidateUserView.as_view(), name='register'),
+    path('me', get_me, name='me'),
     path('login', user_login, name='login'),
     path('logout', user_logout, name='logout'),
     path('change_password', change_password, name='change_password'),

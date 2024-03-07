@@ -13,6 +13,7 @@ from django.core.signing import TimestampSigner, BadSignature
 from django.shortcuts import redirect
 from datetime import datetime
 
+
 # Backend Check
 class CheckAPIView(generics.GenericAPIView):
     def get(self, request, *args, **kwargs):
@@ -39,6 +40,7 @@ class RegisterUserView(APIView):
 
         return Response({'message': 'Verification code has been sent to your email.'}, status=status.HTTP_200_OK)
 
+
 class ValidateUserView(APIView):
     def post(self, request):
         email = request.data.get('email', '')
@@ -49,19 +51,40 @@ class ValidateUserView(APIView):
         except CustomUser.DoesNotExist:
             return Response({'error': 'User with this email does not exist.'}, status=status.HTTP_404_NOT_FOUND)
 
-        print (vcode)
-        print (user.vcode)
+        print(vcode)
+        print(user.vcode)
         if user.vcode == vcode and not user.email_verified:
             user.vcode = None
             user.email_verified = True
             user.save()
-            
+
             # Authenticate the user and create or get an authentication token
             token, _ = Token.objects.get_or_create(user=user)
 
             return Response({'token': token.key}, status=status.HTTP_200_OK)
         else:
             return Response({'error': 'Invalid vcode.'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def get_me(request):
+    token_header = request.headers.get('Authorization')
+    token = token_header.split(" ")[1] if token_header else None
+    print(token)
+
+    if token:
+        try:
+            token = Token.objects.get(key=token)
+            if token:
+                user = token.user
+                return Response(
+                    {'token': token.key, 'username': user.username, 'email': user.email, 'avatar': user.avatar,
+                     'is_superuser': user.is_superuser}, status=status.HTTP_200_OK)
+        except:
+            pass
+
+    return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+
 
 # LOGIN
 @api_view(['POST'])
@@ -79,13 +102,16 @@ def user_login(request):
 
         if not user:
             user = authenticate(username=username, password=password)
-        
+
         if user:
             if user.check_password(password):
                 token, _ = Token.objects.get_or_create(user=user)
-                return Response({'token': token.key, 'username': user.username,'email': user.email, 'avatar': user.avatar, 'is_superuser': user.is_superuser}, status=status.HTTP_200_OK)
+                return Response(
+                    {'token': token.key, 'username': user.username, 'email': user.email, 'avatar': user.avatar,
+                     'is_superuser': user.is_superuser}, status=status.HTTP_200_OK)
 
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+
 
 # LOGOUT
 @api_view(['POST'])
@@ -98,6 +124,7 @@ def user_logout(request):
             return Response({'message': 'Successfully logged out.'}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 # Change Password
 @api_view(['POST'])
@@ -114,6 +141,7 @@ def change_password(request):
                 return Response({'message': 'Password changed successfully.'}, status=status.HTTP_200_OK)
             return Response({'error': 'Incorrect old password.'}, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 # Pssword Reset with Email vcode
 class ForgotPasswordView(APIView):
@@ -132,6 +160,7 @@ class ForgotPasswordView(APIView):
 
         return Response({'message': 'Verification code has been sent to your email.'}, status=status.HTTP_200_OK)
 
+
 class ValidateVcodeView(APIView):
     def post(self, request):
         email = request.data.get('email', '')
@@ -145,13 +174,14 @@ class ValidateVcodeView(APIView):
         if user.vcode == vcode:
             user.vcode = None
             user.save()
-            
+
             # Authenticate the user and create or get an authentication token
             token, _ = Token.objects.get_or_create(user=user)
 
             return Response({'token': token.key}, status=status.HTTP_200_OK)
         else:
             return Response({'error': 'Invalid vcode.'}, status=status.HTTP_400_BAD_REQUEST)
+
 
 class ResetPasswordView(APIView):
     def post(self, request):
@@ -165,5 +195,5 @@ class ResetPasswordView(APIView):
             user.save()
             update_session_auth_hash(request, user)  # To update session after password change
             return Response({'message': 'Password is reset succesfully.'}, status=status.HTTP_200_OK)
-            
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

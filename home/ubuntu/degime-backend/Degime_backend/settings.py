@@ -189,13 +189,15 @@ REST_FRAMEWORK = {
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # Replace with your preferred backend
 
 EMAIL_PORT = 587  # Replace with your email port
-EMAIL_USE_TLS = True  # Set to False if your email server doesn't use TLS
-EMAIL_HOST = 'smtp.gmail.com'  # Replace with your email host
-EMAIL_HOST_USER = 'sticker.flex.3@gmail.com'  # Replace with your email username
-EMAIL_HOST_PASSWORD = 'rucfignkmzvgyryo'  # Replace with your email password
+EMAIL_USE_TLS = False  # Set to False if your email server doesn't use TLS
+EMAIL_HOST = 'smtp.degime.net'  # Replace with your email host
+EMAIL_HOST_USER = 'info@degime.net'  # Replace with your email username
+EMAIL_HOST_PASSWORD = 'Gopty4375'  # Replace with your email password
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 SECURE_SSL_REDIRECT = True
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
