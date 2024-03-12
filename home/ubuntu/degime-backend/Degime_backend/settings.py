@@ -54,6 +54,7 @@ LOCAL_APPS = [
     'user_app.apps.UserAppConfig',
     'social_app.apps.SocialAppConfig',
     'chat_app.apps.ChatAppConfig',
+    'shop_app.apps.ShopAppConfig',
 ]
 
 INSTALLED_APPS = THIRD_PARTY_APPS + DJANGO_APPS + LOCAL_APPS

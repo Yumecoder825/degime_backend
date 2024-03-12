@@ -29,6 +29,8 @@ urlpatterns = [
     path('api/chat/', include('chat_app.urls')),
     
     path('api/account/', include('user_app.urls')),
+
+    path('api/shop/', include('shop_app.urls')),
     
     path('api/docs/', include_docs_urls(title='DEGIME_API')),
     path('schema/', get_schema_view(
