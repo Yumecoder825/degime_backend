@@ -202,3 +202,19 @@ CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
+
+
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django',
+        'ENFORCE_SCHEMA': True,
+        'NAME': 'your_database_name',
+        'HOST': 'your_mongodb_host',
+        'PORT': 'your_mongodb_port',
+        'USER': 'your_mongodb_username',
+        'PASSWORD': 'your_mongodb_password',
+        'AUTH_SOURCE': 'admin',
+    }
+}
