@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from pathlib import Path
+import djongo
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -111,12 +112,7 @@ APPEND_SLASH = False
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+
 
 
 
@@ -205,16 +201,13 @@ CORS_ALLOW_CREDENTIALS = True
 
 
 
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django',
-        'ENFORCE_SCHEMA': True,
-        'NAME': 'your_database_name',
-        'HOST': 'your_mongodb_host',
-        'PORT': 'your_mongodb_port',
-        'USER': 'your_mongodb_username',
-        'PASSWORD': 'your_mongodb_password',
-        'AUTH_SOURCE': 'admin',
-    }
+        'default': {
+            'ENGINE': 'djongo',
+            'NAME': 'DegimeDemo',
+            'ENFORCE_SCHEMA': False,
+            'CLIENT': {
+                'host': 'mongodb+srv://manumr:degime_backend@degimedemo.4xj5wga.mongodb.net/?retryWrites=true&w=majority&appName=DegimeDemo'
+            }  
+        }
 }

@@ -1,7 +1,5 @@
-from rest_framework import generics
+from rest_framework import generics, serializers
 from .models import Product
-from .serializers import ProductSerializer
-
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -18,3 +16,4 @@ class ProductSerializer(serializers.ModelSerializer):
 
         # If all required fields are provided, create the product
         return super().create(validated_data)
+
