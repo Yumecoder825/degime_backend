@@ -98,6 +98,9 @@ TEMPLATES = [
     },
 ]
 
+SILENCED_SYSTEM_CHECKS = ['admin.E040']
+
+
 WSGI_APPLICATION = 'Degime_backend.wsgi.application'
 ASGI_APPLICATION = 'Degime_backend.asgi.application'
 
@@ -201,13 +204,3 @@ CORS_ALLOW_CREDENTIALS = True
 
 
 
-DATABASES = {
-        'default': {
-            'ENGINE': 'djongo',
-            'NAME': 'DegimeDemo',
-            'ENFORCE_SCHEMA': False,
-            'CLIENT': {
-                'host': 'mongodb+srv://manumr:degime_backend@degimedemo.4xj5wga.mongodb.net/?retryWrites=true&w=majority&appName=DegimeDemo'
-            }  
-        }
-}
