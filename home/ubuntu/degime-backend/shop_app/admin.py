@@ -1,8 +1,11 @@
-
 from django.contrib import admin
+from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 from .models import Product
+# Import Token model and TokenAdmin from rest_framework.authtoken
+from rest_framework.authtoken.models import Token
+from rest_framework.authtoken.admin import TokenAdmin
 
 # Define the custom UserAdmin class
 class UserAdmin(BaseUserAdmin):
@@ -17,7 +20,14 @@ class ProductAdmin(admin.ModelAdmin):
 # Register the Product model with ProductAdmin
 admin.site.register(Product, ProductAdmin)
 
-# Unregister any models you want to remove from the admin site
-# In this case, you don't need to unregister the User model since you're using a custom UserAdmin
-# admin.site.unregister(User)
+# Define the CustomTokenAdmin class
+class CustomTokenAdmin(TokenAdmin):
+    search_fields = ('user__username',)
+
+# Unregister existing Token model
+
+
+
+# Re-register Token model with the CustomTokenAdmin class
+admin.site.register(Token, CustomTokenAdmin)
 

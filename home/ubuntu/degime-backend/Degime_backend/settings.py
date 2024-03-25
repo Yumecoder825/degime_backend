@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from pathlib import Path
-import djongo
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ztf4cw8nh$_7sx9#tse_jqc#g!k#!%hq5em2t@=h(d(c-0#s!^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*',
                  'https://ik1-129-71227.vs.sakura.ne.jp']
@@ -39,6 +39,7 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.middleware.gzip'
     
 ]
 
@@ -67,7 +68,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     
     'corsheaders.middleware.CorsMiddleware',
-    
+    'django.middleware.gzip.GZipMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -117,20 +118,16 @@ APPEND_SLASH = False
 
 
 
-
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'djongo',
-#         'NAME': 'degime_db',
-#         'CLIENT': {
-#             'host': 'mongodb+srv://master:ZgmtB0gpvnKwnw9x@test.g6gl1lq.mongodb.net/cluster0?retryWrites=true&w=majority',
-#                      
-#             'username': 'master',
-#             'password': 'ZgmtB0gpvnKwnw9x',
-#         },
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'djongo',
+        'NAME': 'test_db',
+        'HOST': {
+            'host': 'mongodb+srv://manumr158:demoapp@cluster0.fjllllp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
+            'authMechanism':"SCRAM-SHA-1" # for atlas db 
+       },
+    }
+ }
 
 
 # Password validation

@@ -13,7 +13,7 @@ class MongoDBQuerySet:
 
 
 class ProductListCreateAPIView(generics.ListCreateAPIView):
-    queryset = MongoDBQuerySet(connect_to_mongodb()['your_collection_name'])
+    queryset = MongoDBQuerySet(connect_to_mongodb()['product_list'])
     serializer_class = ProductSerializer
 
     def get_queryset(self):
@@ -24,7 +24,7 @@ class ProductListCreateAPIView(generics.ListCreateAPIView):
 
 
 class ProductRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = MongoDBQuerySet(connect_to_mongodb()['your_collection_name'])
+    queryset = MongoDBQuerySet(connect_to_mongodb()['product_update'])
     serializer_class = ProductSerializer
 
     def get_queryset(self):
