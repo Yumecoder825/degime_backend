@@ -5,7 +5,7 @@ import sys
 
 
 def main():
-    """Run administrative tasks."""
+    """Run administrative tasks.   test rollback"""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Degime_backend.settings')
     try:
         from django.core.management import execute_from_command_line
